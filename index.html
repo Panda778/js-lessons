@@ -17,7 +17,7 @@
 		<div class="container">
 			<div class="buttons">
 				<span class="user-name"></span>
-				<button class="btn btn-primary button-auth">
+				<button class="btn btn-primary button-auth" data-bs-toggle="modal-auth" id='btnmodal'>
 					<span class="button-auth-svg"></span>
 					<span class="button-text">Войти</span>
 				</button>
@@ -237,9 +237,9 @@
 		</div>
 	</div>
 
-	<div class="modal-auth">
+	<div class="modal-auth" id='#exampleModal'>
 		<div class="modal-auth__dialog modal-dialog-auth">
-			<button class="close-auth">&times;</button>
+			<button class="close-auth" id='btnmodal'>&times;</button>
 			<form id="logInForm">
 				<fieldset class="modal-body">
 					<legend class="modal-title">Авторизация</legend>
@@ -263,9 +263,32 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+		Launch demo modal
+	</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					...
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<!-- Подключаем скрипты -->
-
+	<script src="js/main.js"></script>
 </body>
 
 </html>
