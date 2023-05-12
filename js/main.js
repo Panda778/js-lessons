@@ -8,6 +8,13 @@ const logIn = document.querySelector('#login')
 const password = document.querySelector('#password')
 const logInName = document.querySelector('#loginName')
 const modal_auth = document.querySelector('.modal-auth__dialog')
+const loginSucces = JSON.parse(localStorage.getItem('login'))
+
+if (loginSucces) {
+	logInName.innerHTML = `Добро пожаловать : ${loginSucces.name}`
+	btnsModal[0].classList.add('none')
+	btnOut.classList.remove('none')
+}
 // close open modal
 btnsModal.forEach(item => {
 	item.addEventListener('click', () => {
@@ -42,13 +49,9 @@ function logins(e) {
 		logIn.value[0]
 		password.value = ''
 	}
-	let loginSucces = JSON.parse(localStorage.getItem('login'))
 	loginSucces
 		? (logInName.innerHTML = `Добро пожаловать : ${loginSucces.name}`)
 		: ''
 }
 
 form.addEventListener('submit', logins)
-modals.addEventListener('focus', e => {
-	console.log(e.type)
-})
