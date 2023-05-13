@@ -6,25 +6,42 @@ const modals = document.querySelector('.modal-auth')
 const form = document.querySelector('#logInForm')
 const logIn = document.querySelector('#login')
 const password = document.querySelector('#password')
-const logInName = document.querySelector('#loginName')
+const logInName = document.querySelector('.user-name')
 const modal_auth = document.querySelector('.modal-auth__dialog')
-const loginSucces = JSON.parse(localStorage.getItem('login'))
 
-if (loginSucces) {
-	logInName.innerHTML = `Добро пожаловать : ${loginSucces.name}`
-	btnsModal[0].classList.add('none')
-	btnOut.classList.remove('none')
+if (localStorage.length !== 0) {
+	logInName.textContent = getLocalValue('login', 'name')
+	addClass(btnsModal[0], 'none')
+	deleteClass(btnOut, 'none')
 }
-// close open modal
+
+function getLocalValue(key, val) {
+	let login = JSON.parse(localStorage.getItem(key))
+
+	return login[val]
+}
+
+function addClass(event, value) {
+	return event.classList.add(value)
+}
+
+function deleteClass(event, value) {
+	return event.classList.remove(value)
+}
+
+function toggleClass(event, value) {
+	return event.classList.toggle(value)
+}
+
 btnsModal.forEach(item => {
 	item.addEventListener('click', () => {
-		modals.classList.toggle('modal-open')
+		toggleClass(modals, 'modal-open')
 	})
 })
 
 btnOut.addEventListener('click', () => {
-	btnOut.classList.add('none')
-	btnsModal[0].classList.remove('none')
+	addClass(btnOut, 'none')
+	deleteClass(btnsModal[0], 'none')
 	logInName.innerHTML = ''
 	localStorage.removeItem('login')
 })
@@ -41,17 +58,14 @@ function logins(e) {
 		localStorage.setItem('login', JSON.stringify(obj))
 		logIn.value = ''
 		password.value = ''
-		modals.classList.remove('modal-open')
-		btnsModal[0].classList.add('none')
-		btnOut.classList.remove('none')
+		deleteClass(modals, 'modal-open')
+		addClass(btnsModal[0], 'none')
+		deleteClass(btnOut, 'none')
+		logInName.textContent = getLocalValue('login', 'name')
 	} else {
-		alert('pliz zapolni polya')
-		logIn.value[0]
-		password.value = ''
+		// delayu validate
+		;('')
 	}
-	loginSucces
-		? (logInName.innerHTML = `Добро пожаловать : ${loginSucces.name}`)
-		: ''
 }
 
 form.addEventListener('submit', logins)

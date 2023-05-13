@@ -21,7 +21,6 @@
 					<span class="button-auth-svg"></span>
 					<span class="button-text">Войти</span>
 				</button>
-				<span id='loginName'></span>
 				<button class="btn btn-outline-warning button-out none">
 					<span class="button-text">Выйти</span>
 					<span class="button-out-svg"></span>
@@ -246,11 +245,11 @@
 					<legend class="modal-title">Авторизация</legend>
 					<label class="label-auth">
 						<span>Логин</span>
-						<input aria-valuemin='3' id="login" type="text">
+						<input minlength='3' id="login" type="text">
 					</label>
 					<label class="label-auth">
 						<span>Пароль</span>
-						<input id="password" type="password">
+						<input minlength='3' id="password" type="password">
 					</label>
 				</fieldset>
 				<!-- /.modal-body -->

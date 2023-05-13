@@ -246,3 +246,8 @@ legend {
 	width: 80px;
 	display: inline-block;
 }
+
+.warning-input {
+	border: 1px solid #ef6185 !important;
+	background-color: #feeaef !important;
+}
