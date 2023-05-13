@@ -229,6 +229,7 @@ fieldset {
 	font-weight: bold;
 	font-size: 36px;
 	line-height: 42px;
+	text-align: center;
 }
 legend {
 	box-sizing: border-box;
@@ -239,7 +240,9 @@ legend {
 	white-space: normal;
 }
 .label-auth {
-	display: block;
+	display: flex;
+	flex-direction: column;
+	width: 300px;
 	margin: 30px;
 }
 .label-auth span {
@@ -250,4 +253,14 @@ legend {
 .warning-input {
 	border: 1px solid #ef6185 !important;
 	background-color: #feeaef !important;
+}
+
+.error-label {
+	color: red;
+	display: block;
+}
+.modal-body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }

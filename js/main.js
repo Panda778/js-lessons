@@ -9,63 +9,104 @@ const password = document.querySelector('#password')
 const logInName = document.querySelector('.user-name')
 const modal_auth = document.querySelector('.modal-auth__dialog')
 
-if (localStorage.length !== 0) {
-	logInName.textContent = getLocalValue('login', 'name')
-	addClass(btnsModal[0], 'none')
-	deleteClass(btnOut, 'none')
-}
-
-function getLocalValue(key, val) {
-	let login = JSON.parse(localStorage.getItem(key))
-
-	return login[val]
-}
-
-function addClass(event, value) {
-	return event.classList.add(value)
-}
-
-function deleteClass(event, value) {
-	return event.classList.remove(value)
-}
-
-function toggleClass(event, value) {
-	return event.classList.toggle(value)
-}
-
-btnsModal.forEach(item => {
-	item.addEventListener('click', () => {
-		toggleClass(modals, 'modal-open')
-	})
-})
-
-btnOut.addEventListener('click', () => {
-	addClass(btnOut, 'none')
-	deleteClass(btnsModal[0], 'none')
-	logInName.innerHTML = ''
-	localStorage.removeItem('login')
-})
-
-// input login func
-function logins(e) {
-	e.preventDefault()
-
-	if (logIn.value.trim() !== '' && password.value.trim() !== '') {
-		let obj = {
-			name: logIn.value,
-			password: password.value,
-		}
-		localStorage.setItem('login', JSON.stringify(obj))
-		logIn.value = ''
-		password.value = ''
-		deleteClass(modals, 'modal-open')
+function modalForm() {
+	if (localStorage.length !== 0) {
+		logInName.textContent = getLocalValue('login', 'name')
 		addClass(btnsModal[0], 'none')
 		deleteClass(btnOut, 'none')
-		logInName.textContent = getLocalValue('login', 'name')
-	} else {
-		// delayu validate
-		;('')
 	}
+	function removeError(inputs) {
+		let parent = form.querySelectorAll('.error-label')
+		console.log(parent)
+		if (parent.length !== 0) {
+			parent.forEach(item => {
+				item.remove()
+			})
+		} else {
+			inputs.forEach(item => {
+				deleteClass(item, 'warning-input')
+			})
+		}
+	}
+	function validateInputs(arr) {
+		removeError(arr)
+		arr.forEach(item => {
+			if (item.value == '') {
+				const text = document.createElement('label')
+				addClass(text, 'error-label')
+				addClass(item, 'warning-input')
+				item.after(text)
+				item.type == 'text'
+					? (text.innerHTML = 'введите логин не менее 3 символов')
+					: (text.innerHTML = 'введите пароль не менее 3 символов')
+			} else {
+				deleteClass(item, 'warning-input')
+			}
+		})
+	}
+
+	function getLocalValue(key, val) {
+		let login = JSON.parse(localStorage.getItem(key))
+
+		return login[val]
+	}
+
+	function addClass(event, value) {
+		return event.classList.add(value)
+	}
+
+	function deleteClass(event, value) {
+		return event.classList.remove(value)
+	}
+
+	function toggleClass(event, value) {
+		return event.classList.toggle(value)
+	}
+
+	function outFunction() {
+		removeError([logIn, password])
+		addClass(btnOut, 'none')
+		deleteClass(btnsModal[0], 'none')
+		logInName.innerHTML = ''
+
+		localStorage.removeItem('login')
+	}
+
+	function toggleBtn() {
+		removeError([logIn, password])
+		toggleClass(modals, 'modal-open')
+		password.value = ''
+		logIn.value = ''
+	}
+
+	btnsModal.forEach(item => {
+		item.addEventListener('click', toggleBtn)
+	})
+
+	btnOut.addEventListener('click', outFunction)
+
+	// input login func
+	function logins(e) {
+		e.preventDefault()
+		removeError([logIn, password])
+		if (logIn.value.trim() !== '' && password.value.trim() !== '') {
+			let obj = {
+				name: logIn.value,
+				password: password.value,
+			}
+			localStorage.setItem('login', JSON.stringify(obj))
+			logIn.value = ''
+			password.value = ''
+			deleteClass(modals, 'modal-open')
+			addClass(btnsModal[0], 'none')
+			deleteClass(btnOut, 'none')
+			logInName.textContent = getLocalValue('login', 'name')
+		} else {
+			validateInputs([logIn, password])
+		}
+	}
+
+	form.addEventListener('submit', logins)
 }
 
-form.addEventListener('submit', logins)
+modalForm()
