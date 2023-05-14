@@ -1,15 +1,15 @@
 // btnModal - массив из элементов батн
 
-const btnsModal = document.querySelectorAll('#btnmodal')
-const btnOut = document.querySelector('.button-out')
-const modals = document.querySelector('.modal-auth')
-const form = document.querySelector('#logInForm')
-const logIn = document.querySelector('#login')
-const password = document.querySelector('#password')
-const logInName = document.querySelector('.user-name')
-const modal_auth = document.querySelector('.modal-auth__dialog')
-
 function modalForm() {
+	const btnsModal = document.querySelectorAll('#btnmodal')
+	const btnOut = document.querySelector('.button-out')
+	const modals = document.querySelector('.modal-auth')
+	const form = document.querySelector('#logInForm')
+	const logIn = document.querySelector('#login')
+	const password = document.querySelector('#password')
+	const logInName = document.querySelector('.user-name')
+	const postalRGEX = /^[А-ЯА-яA-Za-z0-9]{1,15}$/
+
 	if (localStorage.length !== 0) {
 		logInName.textContent = getLocalValue('login', 'name')
 		addClass(btnsModal[0], 'none')
@@ -88,7 +88,12 @@ function modalForm() {
 	function logins(e) {
 		e.preventDefault()
 		removeError([logIn, password])
-		if (logIn.value.trim() !== '' && password.value.trim() !== '') {
+
+		if (
+			logIn.value.trim() !== '' &&
+			password.value.trim() !== '' &&
+			postalRGEX.test(logIn.value) !== false
+		) {
 			let obj = {
 				name: logIn.value,
 				password: password.value,
