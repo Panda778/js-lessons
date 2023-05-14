@@ -16,7 +16,7 @@ function modalForm() {
 		deleteClass(btnOut, 'none')
 	}
 	function removeError(inputs) {
-		let parent = form.querySelectorAll('.error-label')
+		const parent = form.querySelectorAll('.error-label')
 		console.log(parent)
 		if (parent.length !== 0) {
 			parent.forEach(item => {
@@ -29,7 +29,6 @@ function modalForm() {
 		}
 	}
 	function validateInputs(arr) {
-		removeError(arr)
 		arr.forEach(item => {
 			if (item.value == '') {
 				const text = document.createElement('label')
@@ -46,7 +45,7 @@ function modalForm() {
 	}
 
 	function getLocalValue(key, val) {
-		let login = JSON.parse(localStorage.getItem(key))
+		const login = JSON.parse(localStorage.getItem(key))
 
 		return login[val]
 	}
