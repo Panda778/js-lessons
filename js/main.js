@@ -30,12 +30,12 @@ function modalForm() {
 	}
 	function validateInputs(arr) {
 		arr.forEach(item => {
-			if (item.value == '') {
+			if (item.value === '') {
 				const text = document.createElement('label')
 				addClass(text, 'error-label')
 				addClass(item, 'warning-input')
 				item.after(text)
-				item.type == 'text'
+				item.type === 'text'
 					? (text.innerHTML = 'введите логин не менее 3 символов')
 					: (text.innerHTML = 'введите пароль не менее 3 символов')
 			} else {
