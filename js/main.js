@@ -5,9 +5,6 @@ import { modalForm } from './form.js'
 async function main() {
 	const response = await fetch('/data.json')
 	const json = await response.json()
-	document.addEventListener('DOMContentLoaded', () => {
-		return json
-	})
 
 	function renderItem(arr) {
 		const rows = document.querySelector('.grid-item')
@@ -44,6 +41,7 @@ async function main() {
 		}
 		rows.innerHTML = items
 	}
+
 	modalForm()
 
 	renderItem(json)
