@@ -1,6 +1,6 @@
 // btnModal - массив из элементов батн
 
-export async function modalForm() {
+export function modalForm() {
 	const btnsModal = document.querySelectorAll('#btnmodal')
 	const btnOut = document.querySelector('.button-out')
 	const modals = document.querySelector('.modal-auth')
