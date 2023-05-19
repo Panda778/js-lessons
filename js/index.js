@@ -11,7 +11,7 @@ async function main() {
 
 	function render(object) {
 		const { name, img, id, count, weight, price, hit } = object
-
+		let res = 0
 		const wrapper = document.createElement('div')
 		wrapper.className = 'col-md-6'
 		wrapper.setAttribute('data-id', id)
@@ -55,7 +55,7 @@ async function main() {
 		let count__current = document.createElement('div')
 		count__current.className = 'items__current'
 		count__current.setAttribute('data-counter', count)
-		count__current.textContent = 1
+		count__current.textContent = res
 
 		let plus = document.createElement('div')
 		plus.className = 'items__control'
@@ -72,16 +72,12 @@ async function main() {
 		price__currency.textContent = price
 
 		plus.onclick = () => {
-			let res = parseInt(count__current.textContent, 10)
-
-			return (count__current.textContent = res + 1)
+			res = parseInt(count__current.textContent, 10)
+			if (res < 10) return (count__current.textContent = res + 1)
 		}
 		minus.onclick = () => {
-			let res = parseInt(count__current.textContent, 10)
-
-			if (res != 0) {
-				return (count__current.textContent = res - 1)
-			}
+			res = parseInt(count__current.textContent, 10)
+			if (res != 0) return (count__current.textContent = res - 1)
 		}
 
 		const button = document.createElement('button')
