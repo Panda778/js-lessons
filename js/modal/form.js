@@ -17,7 +17,6 @@ export function modalForm() {
 	}
 	function removeError(inputs) {
 		const parent = form.querySelectorAll('.error-label')
-		console.log(parent)
 		if (parent.length !== 0) {
 			parent.forEach(item => {
 				item.remove()

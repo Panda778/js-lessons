@@ -40,7 +40,7 @@ async function main() {
 		const cart__count__small = document.createElement('small')
 		cart__count__small.setAttribute('data-items-in-box', '')
 		cart__count__small.className = 'text-muted'
-		cart__count__small.textContent = count
+		cart__count__small.textContent = count + 'шт'
 
 		const detail__wrapper = document.createElement('div')
 		detail__wrapper.className = 'details-wrapper'
@@ -57,7 +57,7 @@ async function main() {
 		count__current.setAttribute('data-counter', count)
 		count__current.textContent = res
 
-		let plus = document.createElement('div')
+		const plus = document.createElement('div')
 		plus.className = 'items__control'
 		plus.setAttribute('data-action', 'plus')
 		plus.textContent = '+'
@@ -66,7 +66,7 @@ async function main() {
 		prices.className = 'price'
 		const price__weight = document.createElement('div')
 		price__weight.className = 'price__weight'
-		price__weight.textContent = weight
+		price__weight.textContent = weight + 'г.'
 		const price__currency = document.createElement('div')
 		price__currency.className = 'price__currency'
 		price__currency.textContent = price
@@ -108,7 +108,6 @@ async function main() {
 
 	function cartRender(params) {
 		const rows = document.querySelector('.grid-item')
-		console.log(rows)
 		params.forEach(element => {
 			return rows.append(render(element))
 		})
