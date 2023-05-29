@@ -1,42 +1,45 @@
 import { datas } from '../data/getData.js'
+import { renderCart } from './cart.js'
+export function cardItem() {
+	let arr = []
+	let result = []
+	let total = 0
+	let res = 0
 
-export async function cartItem() {
 	document.addEventListener('DOMContentLoaded', () => {
 		return datas
 	})
 
-	function render(object) {
-		const { name, img, id, count, weight, price, hit } = object
-		let res = 0
+	function render(card) {
+		const { name, img, id, count, weight, price, hit } = card
 		const wrapper = document.createElement('div')
 		wrapper.className = 'col-md-6'
 		wrapper.setAttribute('data-id', id)
-
 		const hits = document.createElement('span')
 		hits.className = 'bookmark'
 		hits.textContent = 'HIT'
 
-		const cart__wrapper = document.createElement('div')
-		cart__wrapper.className = 'card mb-4'
-		cart__wrapper.setAttribute('data-id', id)
+		const card__wrapper = document.createElement('div')
+		card__wrapper.className = 'card mb-4'
+		card__wrapper.setAttribute('data-id', id)
 
-		const cart__img = document.createElement('img')
-		cart__img.setAttribute('src', img)
-		cart__img.setAttribute('alt', 'img')
-		cart__img.className = 'product-img'
+		const card__img = document.createElement('img')
+		card__img.setAttribute('src', img)
+		card__img.setAttribute('alt', 'img')
+		card__img.className = 'product-img'
 
-		const cart__body = document.createElement('div')
-		cart__body.className = 'card-body text-center'
+		const card__body = document.createElement('div')
+		card__body.className = 'card-body text-center'
 
-		const cart__title = document.createElement('h4')
-		cart__title.className = 'item-title'
-		cart__title.textContent = name
+		const card__title = document.createElement('h4')
+		card__title.className = 'item-title'
+		card__title.textContent = name
 
-		const cart__count = document.createElement('p')
-		const cart__count__small = document.createElement('small')
-		cart__count__small.setAttribute('data-items-in-box', '')
-		cart__count__small.className = 'text-muted'
-		cart__count__small.textContent = count + 'шт'
+		const card__count = document.createElement('p')
+		const card__count__small = document.createElement('small')
+		card__count__small.setAttribute('data-items-in-box', '')
+		card__count__small.className = 'text-muted'
+		card__count__small.textContent = count + 'шт'
 
 		const detail__wrapper = document.createElement('div')
 		detail__wrapper.className = 'details-wrapper'
@@ -69,7 +72,10 @@ export async function cartItem() {
 
 		plus.onclick = () => {
 			res = parseInt(count__current.textContent, 10)
-			if (res < 10) count__current.textContent = res + 1
+			if (res < 10) {
+				res = res + 1
+				count__current.textContent = res
+			}
 		}
 		minus.onclick = () => {
 			res = parseInt(count__current.textContent, 10)
@@ -77,18 +83,18 @@ export async function cartItem() {
 		}
 
 		const button = document.createElement('button')
-		button.setAttribute('data-cart', '')
+		button.setAttribute('data-card', '')
 		button.setAttribute('type', 'button')
 		button.className = 'btn btn-block btn-outline-warning'
 		button.textContent = '+ в корзину'
 
-		wrapper.append(cart__wrapper)
-		cart__wrapper.append(cart__img)
-		cart__wrapper.append(cart__body)
-		cart__body.append(cart__title)
-		cart__body.append(cart__count)
-		cart__count.append(cart__count__small)
-		cart__body.append(detail__wrapper)
+		wrapper.append(card__wrapper)
+		card__wrapper.append(card__img)
+		card__wrapper.append(card__body)
+		card__body.append(card__title)
+		card__body.append(card__count)
+		card__count.append(card__count__small)
+		card__body.append(detail__wrapper)
 		detail__wrapper.append(couter__wrapper)
 		couter__wrapper.append(minus)
 		couter__wrapper.append(count__current)
@@ -97,17 +103,29 @@ export async function cartItem() {
 		detail__wrapper.append(prices)
 		prices.append(price__weight)
 		prices.append(price__currency)
-		cart__body.append(button)
+		card__body.append(button)
 
+		button.onclick = () => {
+			if (res === 0) {
+				alert('add some items')
+			} else {
+				total = res * card.price
+				result.push(total)
+				arr.push(card)
+				localStorage.setItem('cart', JSON.stringify(arr))
+				console.log(res)
+				renderCart(arr, res, result)
+			}
+		}
 		return wrapper
 	}
 
-	function cartRender(params) {
+	function cardRender(params) {
 		const rows = document.querySelector('.grid-item')
 		params.forEach(element => {
 			return rows.append(render(element))
 		})
 	}
 
-	cartRender(datas)
+	cardRender(datas)
 }

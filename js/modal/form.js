@@ -10,7 +10,7 @@ export function modalForm() {
 	const logInName = document.querySelector('.user-name')
 	const postalRGEX = /^[А-ЯА-яA-Za-z0-9]{1,15}$/
 
-	if (localStorage.length !== 0) {
+	if (localStorage.getItem('login') !== null) {
 		logInName.textContent = getLocalValue('login', 'name')
 		addClass(btnsModal[0], 'none')
 		deleteClass(btnOut, 'none')
