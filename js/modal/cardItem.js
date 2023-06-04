@@ -11,6 +11,8 @@ export function cardItem() {
 	})
 
 	function render(card) {
+		let ads = JSON.parse(localStorage.getItem('cart'))
+
 		const { name, img, id, count, weight, price, hit } = card
 		const wrapper = document.createElement('div')
 		wrapper.className = 'col-md-6'
@@ -106,15 +108,17 @@ export function cardItem() {
 		card__body.append(button)
 
 		button.onclick = () => {
-			if (res === 0) {
-				alert('add some items')
+			const obj = {
+				id: card.id,
+				count: count__current.textContent,
+			}
+			arr.push(obj)
+			if (ads) {
+				localStorage.setItem('cart', JSON.stringify(...ads, arr))
+				renderCart()
 			} else {
-				total = res * card.price
-				result.push(total)
-				arr.push(card)
 				localStorage.setItem('cart', JSON.stringify(arr))
-				console.log(res)
-				renderCart(arr, res, result)
+				renderCart()
 			}
 		}
 		return wrapper
@@ -129,3 +133,5 @@ export function cardItem() {
 
 	cardRender(datas)
 }
+
+// 1 перепись данных
