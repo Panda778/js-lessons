@@ -52,30 +52,50 @@ export function renderCart() {
 	total.textContent = 23232
 	if (item !== null) {
 		empty.classList.add('none')
-		console.log('sdsd')
-		for (const i in carts) {
-			for (const j in item) {
-				if (carts[i].id === item[j].id) {
-					console.log(carts[i].id)
-					console.log(item[j].id)
-					cart__item.setAttribute('data-id', item[j].id)
-					cart__img.setAttribute('src', carts[i].img)
-					cart__item__title.textContent = carts[i].name
-					cart__item__weight.textContent = `${carts[i].count}шт./${carts[i].weight}г`
+		// for (const i of carts) {
+		// 	for (const j of item) {
+		// 		if (i.id === j.id) {
+		// 			cart__item.setAttribute('data-id', j.id)
+		// 			cart__img.setAttribute('src', i.img)
+		// 			cart__item__title.textContent = i.name
+		// 			cart__item__weight.textContent = `${i.count}шт./${i.weight}г`
+		// 			items__plus.onclick = () => {
+		// 				items__current.textContent = ++i.count
+		// 			}
+		// 			items__minus.onclick = () => {
+		// 				if (item.count != 0) {
+		// 					items__current.textContent = --i.count
+		// 				}
+		// 			}
+		// 			price__currency.textContent = `${i.price}₽`
+		// 			items__current.textContent = i.count
+		// 		}
+		// 	}
+		// }
+
+		carts.forEach(i => {
+			item.forEach(j => {
+				if (i.id === j.id) {
+					console.log(0 + 1)
+					cart__item.setAttribute('data-id', j.id)
+					cart__img.setAttribute('src', i.img)
+					cart__item__title.textContent = i.name
+					cart__item__weight.textContent = `${i.count}шт./${i.weight}г`
 					items__plus.onclick = () => {
-						items__current.textContent = ++carts[i].count
+						items__current.textContent = ++j.count
 					}
 					items__minus.onclick = () => {
 						if (item.count != 0) {
-							items__current.textContent = --carts[i].count
+							items__current.textContent = --j.count
 						}
 					}
-					price__currency.textContent = `${carts[i].price}₽`
-					items__current.textContent = carts[i].count
+					price__currency.textContent = `${i.price}₽`
+					items__current.textContent = j.count
 				}
-			}
-		}
+			})
+		})
 	}
+
 	cart__item.append(cart__item__top)
 	cart__item__top.append(cart__item__img)
 	cart__item__img.append(cart__img)

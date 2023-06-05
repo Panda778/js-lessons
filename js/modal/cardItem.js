@@ -2,17 +2,21 @@ import { datas } from '../data/getData.js'
 import { renderCart } from './cart.js'
 export function cardItem() {
 	let arr = []
-	let result = []
 	let total = 0
 	let res = 0
+	let ads = JSON.parse(localStorage.getItem('cart'))
+
+	if (ads) {
+		ads.forEach(element => {
+			arr.push(element)
+		})
+	}
 
 	document.addEventListener('DOMContentLoaded', () => {
 		return datas
 	})
 
 	function render(card) {
-		let ads = JSON.parse(localStorage.getItem('cart'))
-
 		const { name, img, id, count, weight, price, hit } = card
 		const wrapper = document.createElement('div')
 		wrapper.className = 'col-md-6'
@@ -106,20 +110,51 @@ export function cardItem() {
 		prices.append(price__weight)
 		prices.append(price__currency)
 		card__body.append(button)
-
 		button.onclick = () => {
 			const obj = {
 				id: card.id,
 				count: count__current.textContent,
 			}
-			arr.push(obj)
+
 			if (ads) {
-				localStorage.setItem('cart', JSON.stringify(...ads, arr))
-				renderCart()
+				arr.find(item => {
+					if (item.id === obj.id) {
+						let num = (obj.count =
+							parseInt(item.count, 10) + parseInt(obj.count, 10))
+						item.count = num
+
+						console.log(arr)
+						localStorage.setItem('cart', JSON.stringify(arr))
+					}
+				})
 			} else {
+				arr.push(obj)
 				localStorage.setItem('cart', JSON.stringify(arr))
-				renderCart()
 			}
+			// if (ads) {
+			// 	ads.filter(item => {
+			// 		if (item.id === obj.id) {
+			// 			let num = (obj.count =
+			// 				parseInt(item.count, 10) + parseInt(obj.count, 10))
+
+			// 			arr.forEach(i => {
+			// 				if (i.id === obj.id) {
+			// 					obj.count = num
+			// 					arr.push(obj)
+			// 					console.log('dasda', arr)
+			// 					localStorage.setItem('cart', JSON.stringify(arr))
+			// 				} else {
+			// 					arr.push(obj)
+			// 					localStorage.setItem('cart', JSON.stringify(arr))
+			// 				}
+			// 			})
+			// 		}
+			// 	})
+			// } else {
+			// 	arr.push(obj)
+			// 	localStorage.setItem('cart', JSON.stringify(arr))
+			// }
+			renderCart()
 		}
 		return wrapper
 	}
