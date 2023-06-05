@@ -5,7 +5,6 @@ export function cardItem() {
 	let total = 0
 	let res = 0
 	let ads = JSON.parse(localStorage.getItem('cart'))
-
 	if (ads) {
 		ads.forEach(element => {
 			arr.push(element)
@@ -117,19 +116,26 @@ export function cardItem() {
 			}
 
 			if (ads) {
-				arr.find(item => {
-					if (item.id === obj.id) {
+				arr.findIndex(function (value, idx, arrs) {
+					if (value.id === obj.id) {
 						let num = (obj.count =
-							parseInt(item.count, 10) + parseInt(obj.count, 10))
-						item.count = num
-
-						console.log(arr)
+							parseInt(value.count, 10) + parseInt(obj.count, 10))
+						value.count = num
 						localStorage.setItem('cart', JSON.stringify(arr))
 					}
 				})
 			} else {
-				arr.push(obj)
-				localStorage.setItem('cart', JSON.stringify(arr))
+				if (arr.length !== 0) {
+					arr.findIndex(function (value, idx, arrs) {
+						if (value.id !== obj.id) {
+							arr.push(obj)
+							localStorage.setItem('cart', JSON.stringify(arr))
+						}
+					})
+				} else {
+					arr.push(obj)
+					localStorage.setItem('cart', JSON.stringify(arr))
+				}
 			}
 			// if (ads) {
 			// 	ads.filter(item => {
