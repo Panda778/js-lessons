@@ -132,7 +132,7 @@ export function cardItem() {
 	function cardRender(params) {
 		const rows = document.querySelector('.grid-item')
 		params.forEach(element => {
-			return rows.append(render(element))
+			rows.append(render(element))
 		})
 	}
 
