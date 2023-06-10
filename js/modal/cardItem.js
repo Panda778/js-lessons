@@ -1,17 +1,10 @@
 import { datas } from '../data/getData.js'
 import { renderCart } from './cart.js'
-export function cardItem() {
-	let arr = []
-	let total = 0
-	let res = 0
-	let ads = JSON.parse(localStorage.getItem('cart'))
-	if (arr.length == 0 && ads !== null) {
-		ads.forEach(element => {
-			arr.push(element)
-		})
-	}
-	console.log(arr)
 
+let total = 0
+let res = 0
+let ads = JSON.parse(localStorage.getItem('cart')) || []
+export function cardItem() {
 	function render(card) {
 		const { name, img, id, count, weight, price, hit } = card
 		const wrapper = document.createElement('div')
@@ -106,33 +99,31 @@ export function cardItem() {
 		prices.append(price__weight)
 		prices.append(price__currency)
 		card__body.append(button)
+
 		button.onclick = () => {
 			const obj = {
 				id: card.id,
 				count: count__current.textContent,
 			}
-
-			if (ads !== null || arr.length !== 0) {
-				const indexId = arr.findIndex(item => item.id === card.id)
-
-				arr.find(function (value, idx, arrs) {
-					if (indexId >= 0) {
-						if (value.id === obj.id) {
-							let num = parseInt(value.count, 10) + parseInt(obj.count, 10)
-							obj.count == 0 ? value.count : (value.count = num)
-							localStorage.setItem('cart', JSON.stringify(arr))
-						}
-					} else {
-						arr.push(obj)
-						console.log(obj)
-						localStorage.setItem('cart', JSON.stringify(arr))
-						renderCart()
-					}
-				})
+			console.log(obj.count)
+			let fiended = ads.find(el => el.id === obj.id)
+			if (fiended) {
+				let idx = ads.indexOf(fiended)
+				if (idx >= 0) {
+					fiended.count = obj.count
+					localStorage.setItem('cart', JSON.stringify(ads))
+					renderCart()
+				} else {
+					;('')
+				}
 			} else {
-				arr.push(obj)
-				localStorage.setItem('cart', JSON.stringify(arr))
-				renderCart()
+				if (obj.count == 0) {
+					alert('das')
+				} else {
+					ads.push(obj)
+					renderCart()
+					localStorage.setItem('cart', JSON.stringify(ads))
+				}
 			}
 		}
 		return wrapper
