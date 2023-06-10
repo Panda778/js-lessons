@@ -50,64 +50,37 @@ export function renderCart() {
 	const price__currency = document.createElement('div')
 	price__currency.className = 'price__currency'
 	total.textContent = 23232
-	if (item !== null) {
-		empty.classList.add('none')
-		// for (const i of carts) {
-		// 	for (const j of item) {
-		// 		if (i.id === j.id) {
-		// 			cart__item.setAttribute('data-id', j.id)
-		// 			cart__img.setAttribute('src', i.img)
-		// 			cart__item__title.textContent = i.name
-		// 			cart__item__weight.textContent = `${i.count}шт./${i.weight}г`
-		// 			items__plus.onclick = () => {
-		// 				items__current.textContent = ++i.count
-		// 			}
-		// 			items__minus.onclick = () => {
-		// 				if (item.count != 0) {
-		// 					items__current.textContent = --i.count
-		// 				}
-		// 			}
-		// 			price__currency.textContent = `${i.price}₽`
-		// 			items__current.textContent = i.count
-		// 		}
-		// 	}
-		// }
 
-		carts.forEach(i => {
-			item.forEach(j => {
-				if (i.id === j.id) {
-					console.log(0 + 1)
-					cart__item.setAttribute('data-id', j.id)
-					cart__img.setAttribute('src', i.img)
-					cart__item__title.textContent = i.name
-					cart__item__weight.textContent = `${i.count}шт./${i.weight}г`
-					items__plus.onclick = () => {
-						items__current.textContent = ++j.count
-					}
-					items__minus.onclick = () => {
-						if (item.count != 0) {
-							items__current.textContent = --j.count
-						}
-					}
-					price__currency.textContent = `${i.price}₽`
-					items__current.textContent = j.count
-				}
-			})
+	if (item !== null) {
+		item.forEach(i => {
+			cart__item.setAttribute('data-id', i.id)
+			cart__img.setAttribute('src', './img/roll/zapech-california.jpg')
+			cart__item__title.textContent = 'roll'
+			cart__item__weight.textContent = `${1}шт./${1}г`
+			// items__plus.onclick = () => {
+			// 	items__current.textContent = ++j.count
+			// }
+			// items__minus.onclick = () => {
+			// 	if (item.count != 0) {
+			// 		items__current.textContent = --j.count
+			// 	}
+			// }
+			price__currency.textContent = `${200}₽`
+			items__current.textContent = 3
+			cart__item.append(cart__item__top)
+			cart__item__top.append(cart__item__img)
+			cart__item__img.append(cart__img)
+			cart__item__top.append(cart__item__desc)
+			cart__item__desc.append(cart__item__title)
+			cart__item__desc.append(cart__item__weight)
+			cart__item__desc.append(cart__item__details)
+			cart__item__details.append(items)
+			items.append(items__minus)
+			items.append(items__current)
+			items.append(items__plus)
+			priceItem.append(price__currency)
+			cart__item__details.append(priceItem)
+			grid.append(cart__item)
 		})
 	}
-
-	cart__item.append(cart__item__top)
-	cart__item__top.append(cart__item__img)
-	cart__item__img.append(cart__img)
-	cart__item__top.append(cart__item__desc)
-	cart__item__desc.append(cart__item__title)
-	cart__item__desc.append(cart__item__weight)
-	cart__item__desc.append(cart__item__details)
-	cart__item__details.append(items)
-	items.append(items__minus)
-	items.append(items__current)
-	items.append(items__plus)
-	priceItem.append(price__currency)
-	cart__item__details.append(priceItem)
-	grid.append(cart__item)
 }

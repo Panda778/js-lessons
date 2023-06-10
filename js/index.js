@@ -6,11 +6,12 @@ import { modalForm } from './modal/form.js'
 cardItem()
 modalForm()
 
-if (localStorage.getItem('cart') !== null) {
-	//тут код я беру блок с надписью пустая корзина даю дисплей ноне и отрисовываваю
+//
+
+if (localStorage.getItem('cart')) {
 	renderCart()
 } else {
+	;('')
 }
-//
 
 //

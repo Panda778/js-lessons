@@ -5,15 +5,12 @@ export function cardItem() {
 	let total = 0
 	let res = 0
 	let ads = JSON.parse(localStorage.getItem('cart'))
-	if (ads) {
+	if (arr.length == 0 && ads !== null) {
 		ads.forEach(element => {
 			arr.push(element)
 		})
 	}
-
-	document.addEventListener('DOMContentLoaded', () => {
-		return datas
-	})
+	console.log(arr)
 
 	function render(card) {
 		const { name, img, id, count, weight, price, hit } = card
@@ -115,52 +112,28 @@ export function cardItem() {
 				count: count__current.textContent,
 			}
 
-			if (ads) {
-				arr.findIndex(function (value, idx, arrs) {
-					if (value.id === obj.id) {
-						let num = (obj.count =
-							parseInt(value.count, 10) + parseInt(obj.count, 10))
-						value.count = num
+			if (ads !== null || arr.length !== 0) {
+				const indexId = arr.findIndex(item => item.id === card.id)
+
+				arr.find(function (value, idx, arrs) {
+					if (indexId >= 0) {
+						if (value.id === obj.id) {
+							let num = parseInt(value.count, 10) + parseInt(obj.count, 10)
+							obj.count == 0 ? value.count : (value.count = num)
+							localStorage.setItem('cart', JSON.stringify(arr))
+						}
+					} else {
+						arr.push(obj)
+						console.log(obj)
 						localStorage.setItem('cart', JSON.stringify(arr))
+						renderCart()
 					}
 				})
 			} else {
-				if (arr.length !== 0) {
-					arr.findIndex(function (value, idx, arrs) {
-						if (value.id !== obj.id) {
-							arr.push(obj)
-							localStorage.setItem('cart', JSON.stringify(arr))
-						}
-					})
-				} else {
-					arr.push(obj)
-					localStorage.setItem('cart', JSON.stringify(arr))
-				}
+				arr.push(obj)
+				localStorage.setItem('cart', JSON.stringify(arr))
+				renderCart()
 			}
-			// if (ads) {
-			// 	ads.filter(item => {
-			// 		if (item.id === obj.id) {
-			// 			let num = (obj.count =
-			// 				parseInt(item.count, 10) + parseInt(obj.count, 10))
-
-			// 			arr.forEach(i => {
-			// 				if (i.id === obj.id) {
-			// 					obj.count = num
-			// 					arr.push(obj)
-			// 					console.log('dasda', arr)
-			// 					localStorage.setItem('cart', JSON.stringify(arr))
-			// 				} else {
-			// 					arr.push(obj)
-			// 					localStorage.setItem('cart', JSON.stringify(arr))
-			// 				}
-			// 			})
-			// 		}
-			// 	})
-			// } else {
-			// 	arr.push(obj)
-			// 	localStorage.setItem('cart', JSON.stringify(arr))
-			// }
-			renderCart()
 		}
 		return wrapper
 	}
