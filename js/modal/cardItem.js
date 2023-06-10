@@ -49,7 +49,7 @@ export function cardItem() {
 		const count__current = document.createElement('div')
 		count__current.className = 'items__current'
 		count__current.setAttribute('data-counter', count)
-		count__current.textContent = res
+		count__current.textContent = 1
 
 		const plus = document.createElement('div')
 		plus.className = 'items__control'
@@ -103,14 +103,15 @@ export function cardItem() {
 		button.onclick = () => {
 			const obj = {
 				id: card.id,
-				count: count__current.textContent,
+				count: parseInt(count__current.textContent, 10),
 			}
-			console.log(obj.count)
 			let fiended = ads.find(el => el.id === obj.id)
 			if (fiended) {
 				let idx = ads.indexOf(fiended)
 				if (idx >= 0) {
-					fiended.count = obj.count
+					fiended.count =
+						parseInt(fiended.count, 10) +
+						parseInt(count__current.textContent, 10)
 					localStorage.setItem('cart', JSON.stringify(ads))
 					renderCart()
 				} else {
@@ -121,8 +122,8 @@ export function cardItem() {
 					alert('das')
 				} else {
 					ads.push(obj)
-					renderCart()
 					localStorage.setItem('cart', JSON.stringify(ads))
+					renderCart()
 				}
 			}
 		}
